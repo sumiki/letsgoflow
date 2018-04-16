@@ -13,12 +13,16 @@ func main() {
 	http.HandleFunc("/", handle_home)
 	http.HandleFunc("/a", handle_a )
 	http.HandleFunc("/b", handle_b )
+	http.HandleFunc("/c", handle_c )
 	appengine.Main()
 }
 
 func handle_home(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "Home")
+	t, _ := template.ParseFiles("views/index.html")
+	t.Execute(w, nil)
 }
+
+
 
 func handle_a(w http.ResponseWriter, r *http.Request) {
 	const s = `"TEST" <hoho@hoho>`
@@ -60,4 +64,8 @@ func handle_b(w http.ResponseWriter, r *http.Request) {
 	err = t.Execute(w, data)
 	check(err)
 
+}
+
+func handle_c(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintln(w, "Home")
 }
