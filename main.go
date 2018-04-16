@@ -1,26 +1,63 @@
-// Copyright 2018 Google Inc. All rights reserved.
-// Use of this source code is governed by the Apache 2.0
-// license that can be found in the LICENSE file.
-
 package main
 
 import (
 	"fmt"
 	"net/http"
-
+	"log"
+	"html"
+	"html/template"
 	"google.golang.org/appengine"
 )
 
 func main() {
 	http.HandleFunc("/", handle_home)
-	http.HandleFunc("/africa", handle_africa )
+	http.HandleFunc("/a", handle_a )
+	http.HandleFunc("/b", handle_b )
 	appengine.Main()
 }
 
 func handle_home(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "USA")
+	fmt.Fprintln(w, "Home")
 }
 
-func handle_africa(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "Africa")
+func handle_a(w http.ResponseWriter, r *http.Request) {
+	const s = `"TEST" <hoho@hoho>`
+	fmt.Fprintln(w, html.EscapeString(s))
+}
+
+func handle_b(w http.ResponseWriter, r *http.Request) {
+	const tpl = `
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>{{.Title}}</title>
+	</head>
+	<body>
+		{{range .Items}}<div>{{ . }}</div>{{else}}<div><strong>no rows</strong></div>{{end}}
+	</body>
+</html>`
+
+	check := func(err error) {
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
+	t, err := template.New("webpage").Parse(tpl)
+	check(err)
+
+	data := struct {
+		Title string
+		Items []string
+	}{
+		Title: "My page",
+		Items: []string{
+			"My photos",
+			"My blog",
+		},
+	}
+
+	err = t.Execute(w, data)
+	check(err)
+
 }
