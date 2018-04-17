@@ -3,11 +3,11 @@
 
 flow syntax check
 
-### `npm run-script watch`
+### `yarn watch`
 
 Development watch server
 
-### `npm run-script build`
+### `yarn build`
 
 Build JS
 
