@@ -37,10 +37,10 @@ class Login extends Component {
     render() {
         var app_style = {
             textAlign: 'center',
-            marginTop: '150px'
+            marginTop: '100px'
         }
         var width_style = {
-            width: '300px'
+            width: '250px'
         }
         return (
             <div className="app" style={ app_style }>
