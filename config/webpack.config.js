@@ -1,9 +1,12 @@
 const path = require('path');
 
 module.exports = {
-    entry: './javascripts/packs/index.jsx',
+    entry: {
+        index: './javascripts/packs/index.jsx',
+        kinen: './javascripts/packs/kinen.jsx'
+    },
     output: {
-        filename: 'index.js',
+        filename: '[name].js',
         path: path.resolve('./static', 'packs')
     },
     module: {

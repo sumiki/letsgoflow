@@ -4,23 +4,40 @@ import (
 	"fmt"
 	"net/http"
 	"log"
+	"strings"
 	"html"
 	"html/template"
 	"google.golang.org/appengine"
 )
 
 func main() {
-	http.HandleFunc("/", handle_home)
 	http.HandleFunc("/a", handle_a )
 	http.HandleFunc("/b", handle_b )
 	http.HandleFunc("/c", handle_c )
+	http.HandleFunc("/", handle_home)
+	http.HandleFunc("/.*", handle_home)
 	appengine.Main()
 }
 
 func handle_home(w http.ResponseWriter, r *http.Request) {
 	log.Printf("Home Accessed")
+	log.Printf(r.URL.Path)
+	log.Printf("Req: %s %s\n", r.Host, r.URL.Path)
 	t, _ := template.ParseFiles("views/index.html")
-	t.Execute(w, nil)
+
+	jsfile := r.URL.Path
+	if jsfile == "/" {
+		jsfile = "/index"
+	} else if strings.Index(jsfile, ".") > -1 {
+		splited := strings.Split(jsfile, ".")
+		jsfile = splited[0]
+	}
+	data := struct {
+		Jsfile string
+	}{
+		Jsfile: jsfile,
+	}
+	t.Execute(w, data)
 }
 
 

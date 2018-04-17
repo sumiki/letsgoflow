@@ -12,6 +12,6 @@ Build JS
 Start local server
 
 
-## `gcloud app deploy`
+### `gcloud app deploy`
 
 To deploy GAE
