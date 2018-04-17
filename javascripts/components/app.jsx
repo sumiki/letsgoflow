@@ -1,7 +1,13 @@
-import React, { Component } from 'react';
+// @flow
 
-class App extends Component {
+import React, { Component } from 'react';
+import Util from './../lib/util.js'
+type Props = {};
+
+class App extends Component<Props> {
     render() {
+        var a = Util.afunc(1)
+        //alert(a)
         return (
             <div className="app" style={ { textAlign: 'center' } }>
                 <div>Go + React on GAE</div>

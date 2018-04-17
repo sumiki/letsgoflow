@@ -1,4 +1,8 @@
 
+### `yarn flow`
+
+flow syntax check
+
 ### `npm run-script watch`
 
 Development watch server

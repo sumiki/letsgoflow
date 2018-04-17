@@ -3,8 +3,6 @@ const path = require('path');
 module.exports = {
     entry: {
         index: './javascripts/packs/index.jsx',
-        login: './javascripts/packs/login.jsx',
-        menu: './javascripts/packs/menu.jsx'
     },
     output: {
         filename: '[name].js',
@@ -19,7 +17,7 @@ module.exports = {
                 query: {
                     presets: [
                         'react',
-                        'es2015'
+                        'es2015',
                     ],
                     plugins: [
                         "syntax-dynamic-import",
