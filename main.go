@@ -18,6 +18,7 @@ func main() {
 }
 
 func handle_home(w http.ResponseWriter, r *http.Request) {
+	log.Printf("Home Accessed")
 	t, _ := template.ParseFiles("views/index.html")
 	t.Execute(w, nil)
 }
